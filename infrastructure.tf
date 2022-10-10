@@ -23,3 +23,9 @@ resource "azurerm_container_registry" "acr" {
   sku                 = "Standard"
   admin_enabled       = false
 }
+
+resource "azurerm_role_assignment" "acr_puller_sp_ra" {
+  scope                = azurerm_container_registry.acr.id
+  role_definition_name = "Contributor"
+  principal_id         = azuread_service_principal.acr_puller_sp.object_id
+}

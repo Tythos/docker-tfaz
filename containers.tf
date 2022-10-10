@@ -7,7 +7,7 @@ resource "azurerm_container_group" "example" {
   os_type             = "Linux"
 
   image_registry_credential {
-    username = azuread_service_principal.acr_puller_sp.application_id
+    username = azuread_service_principal.acr_puller_sp.display_name
     password = azuread_service_principal_password.acr_puller_sp_key.value
     server   = azurerm_container_registry.acr.login_server
   }
@@ -15,8 +15,8 @@ resource "azurerm_container_group" "example" {
   container {
     name   = "mytest"
     image  = "${azurerm_container_registry.acr.login_server}/mytest:latest"
-    cpu    = "0.5"
-    memory = "1.5"
+    cpu    = "1.0"
+    memory = "1.0"
 
     ports {
       port     = 80
