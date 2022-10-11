@@ -7,9 +7,9 @@ resource "azurerm_container_group" "example" {
   os_type             = "Linux"
 
   image_registry_credential {
-    username = "docker-tfaz-sp"
+    username = azuread_service_principal.example-sp.application_id
     password = azuread_service_principal_password.example-spkey.value
-    server   = "dockertfazacr.acurecr.io"
+    server   = azurerm_container_registry.acr.login_server
   }
 
   container {
